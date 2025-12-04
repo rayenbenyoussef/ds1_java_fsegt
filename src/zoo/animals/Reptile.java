@@ -3,7 +3,7 @@ public class Reptile extends Animal implements Herbivore,Carnivore{
     private Boolean venimeux;
     public static int nbM=0;
     public Reptile(){
-        super("O0"+nbM);
+        super("R0"+nbM);
         this.venimeux=null;
         nbM++;
     }
@@ -26,7 +26,7 @@ public class Reptile extends Animal implements Herbivore,Carnivore{
         System.out.println("id: "+getId()+" nom: "+getNom()+"\nage: "+calculAge()+" venimeux: "+this.venimeux);
     }
 
-    public void setVenimeux(Boolean venimeux){
-        this.venimeux=venimeux;
+    public void setVenimeux(int venimeux){
+        this.venimeux=venimeux==1;
     }
 }

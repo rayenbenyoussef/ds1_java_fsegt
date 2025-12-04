@@ -1,9 +1,10 @@
 package src.zoo;
 
 import java.util.ArrayList;
+
+import src.exceptions.AnimalNotFoundException;
+import src.exceptions.FullEnclosureException;
 import src.zoo.animals.Animal;
-import src.zoo.exceptions.AnimalNotFoundException;
-import src.zoo.exceptions.FullEnclosureException;
 
 public class Enclos  {
         private String nom,localite;
@@ -17,11 +18,47 @@ public class Enclos  {
         this.superficie=0;
         this.localite="";
     }
+
+    public void setNom(String nom){
+        this.nom=nom;
+    }
+
+    public void setLoc(String loc){
+        this.localite=loc;
+    }
+
+    public void setMax(int max){
+        this.capaciteMax=max;
+    }
+
+    public void setSup(float superficie){
+        this.superficie=superficie;
+    }
+
+    public Animal getAniamlById(String id){
+        for(Animal i : this.animaux){
+            if(i.getId()==id){
+                return i;
+            }
+        }
+        return null;
+    }
+
     public void ajouterAnimal(Animal a)  throws FullEnclosureException{
-        this.animaux.add(a);
+        if (this.animaux.size()==this.capaciteMax){
+            throw new FullEnclosureException();
+        }else{
+            this.animaux.add(a);
+        }
+        
     }
     public void enleverAnimal(Animal a) throws AnimalNotFoundException{
-        this.animaux.remove(a);
+        if(this.animaux.contains(a)){
+            this.animaux.remove(a);
+        }else{
+            throw new AnimalNotFoundException();
+        }
+        
     }
 
     public String toString(){
