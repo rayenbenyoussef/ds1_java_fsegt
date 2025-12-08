@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import src.exceptions.AnimalNotFoundException;
 import src.exceptions.DeplacementImpossibleException;
+import src.exceptions.EnclosNotFoundException;
 import src.exceptions.FullEnclosureException;
 import src.zoo.Enclos;
 import src.zoo.Zoo;
@@ -26,9 +27,7 @@ public class Main {
         return date ;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Zoo zoo_fsegt=new Zoo();
+    public static void logo(){
         System.out.println("  ______                 _        ______              _   \n" + //
                         " |___  /                | |      |  ____|            | |  \n" + //
                         "    / / ___   ___     __| | ___  | |__ ___  ___  __ _| |_ \n" + //
@@ -37,6 +36,18 @@ public class Main {
                         " /_____\\___/ \\___/   \\__,_|\\___| |_|  |___/\\___|\\__, |\\__|\n" + //
                         "                                                 __/ |    \n" + //
                         "                                                |___/     ");
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Zoo zoo_fsegt=new Zoo();
+        logo();
         int c=0;
         do{
         System.out.println("----------------------------------------------------------");
@@ -46,23 +57,29 @@ public class Main {
         System.out.println(YELLOW+"4."+RED+" Supprimer un animal.");
         System.out.println(YELLOW+"5."+GREEN+" Afficher tous les animaux.");
         System.out.println(YELLOW+"6."+GREEN+" Rechercher un animal par ID.");
-        System.out.println(RED+"0. Quitter l’application.");
+        System.out.println(RED+"0. Quitter l'application.");
         System.out.print(YELLOW+"Choose: "+RESET);
+
         try {
             c = sc.nextInt();
+            sc.nextLine();
+            clearScreen();
+            logo();
+            System.out.println("----------------------------------------------------------");
             switch (c) {
             case 1:
+                System.out.println(GREEN+"Ajouter un enclos:"+RESET);
                 Enclos enc=new Enclos();
-                System.out.println("donner enclos nom: ");
+                System.out.print("    donner enclos nom: ");
                 String nom=sc.nextLine();
                 enc.setNom(nom);
-                System.out.println("donner enclos localite: ");
+                System.out.print("    donner enclos localite: ");
                 String loc=sc.nextLine();
                 enc.setLoc(loc);
-                System.out.println("donner enclos capacite max: ");
+                System.out.print("    donner enclos capacite max: ");
                 int max=sc.nextInt();
                 enc.setMax(max);
-                System.out.println("donner enclos superficie: ");
+                System.out.print("    donner enclos superficie: ");
                 float sup=sc.nextFloat();
                 enc.setSup(sup);
                 
@@ -78,16 +95,17 @@ public class Main {
                 System.out.print("donner animal date de naissance(d M yyyy): ");
                 LocalDate date=dateInput(sc.nextLine());
 
-                String type;
+                int type;
                 do{
                     System.out.print("donner type de animal(1.Mammifere, 2.Oiseau, 3.Reptile): ");
-                    type=sc.nextLine();
-                }while(type!="1"&&type!="2"&&type!="3");
+                    type=sc.nextInt();
+                    sc.nextLine();
+                }while(type!=1&&type!=2&&type!=3);
 
                 
                 Animal a;
                 switch (type) {
-                    case "1":
+                    case 1:
                         a=new Mammifere();
                         a.setNom(nom);
                         a.setDateN(date);
@@ -95,7 +113,7 @@ public class Main {
                         System.out.print("donner animal espece: ");
                         ((Mammifere)a).setEspece(sc.nextLine());
                         break;
-                    case "2":
+                    case 2:
                         a=new Oiseau();
                         a.setNom(nom);
                         a.setDateN(date);
@@ -103,7 +121,7 @@ public class Main {
                         System.out.print("donner animal envergure: ");
                         ((Oiseau)a).setEnvergure(sc.nextLine());
                         break;
-                    case "3":
+                    case 3:
                         a=new Reptile();
                         a.setNom(nom);
                         a.setDateN(date);
@@ -118,7 +136,11 @@ public class Main {
                     zoo_fsegt.getEnclos(id).ajouterAnimal(a);
                 } catch (FullEnclosureException e) {
                     System.err.println(e);
+                }catch(EnclosNotFoundException e){
+                    System.err.println(e);
+
                 }
+                break;
             case 3:
                 System.out.print("donner animal id: ");
                 String ida=sc.nextLine();
@@ -148,9 +170,12 @@ public class Main {
                 String ide=sc.nextLine();
 
                 try {
-                    zoo_fsegt.getEnclos(ide).enleverAnimal(zoo_fsegt.getEnclos(ida).getAniamlById(ida));
+                    zoo_fsegt.getEnclos(ide).enleverAnimal(zoo_fsegt.getEnclos(ide).getAniamlById(ida));
                 } catch (AnimalNotFoundException e) {
                     System.err.println(e);
+                }catch(EnclosNotFoundException e){
+                    System.err.println(e);
+
                 }
                 
                 break;
@@ -162,9 +187,11 @@ public class Main {
                 ida=sc.nextLine();
                 for (String i : zoo_fsegt.getEnclos().keySet()) {
                     if(zoo_fsegt.getEnclos().get(i).getAniamlById(ida)==null){
-                        System.err.println("animal not found");
+                        continue;
                     }else{
+                        System.out.println("animal found in enclos: id="+i+" nom="+zoo_fsegt.getEnclos().get(i).getNom());
                         zoo_fsegt.getEnclos().get(i).getAniamlById(ida).afficherInfos();
+                        break;
                     }
                 }
                 break;
@@ -176,6 +203,6 @@ public class Main {
             System.err.println("invalid input.");
         }
         }while(c!=0);
-    
+    sc.close();
     }
 }

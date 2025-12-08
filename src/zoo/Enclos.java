@@ -37,7 +37,7 @@ public class Enclos  {
 
     public Animal getAniamlById(String id){
         for(Animal i : this.animaux){
-            if(i.getId()==id){
+            if(i.getId().equals(id)){
                 return i;
             }
         }
@@ -61,11 +61,15 @@ public class Enclos  {
         
     }
 
+    public String getNom(){
+        return this.nom;
+    }
+
     public String toString(){
         String animS="";
         for (Animal a : this.animaux) {
-                animS+=a.getNom()+"\n";
+                animS+="id: "+a.getId() +" nom: "+a.getNom()+"\n";
             }
-        return "nom enclos: "+this.nom+" localite: "+this.localite+" superficie: "+this.superficie+" animals list: "+animS;
+        return "nom enclos: "+this.nom+" localite: "+this.localite+" superficie: "+this.superficie+" animals list:\n "+animS;
     }
 }
