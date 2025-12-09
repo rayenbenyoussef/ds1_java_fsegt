@@ -1,4 +1,7 @@
 package src.zoo.animals;
+
+import java.util.InputMismatchException;
+
 public class Reptile extends Animal implements Herbivore,Carnivore{
     private Boolean venimeux;
     public static int nbM=0;
@@ -26,7 +29,8 @@ public class Reptile extends Animal implements Herbivore,Carnivore{
         System.out.println("id: "+getId()+" nom: "+getNom()+"\nage: "+calculAge()+" venimeux: "+this.venimeux);
     }
 
-    public void setVenimeux(int venimeux){
+    public void setVenimeux(int venimeux) throws InputMismatchException{
+        if(venimeux!=1 || venimeux!=0)throw new InputMismatchException();
         this.venimeux=venimeux==1;
     }
 }

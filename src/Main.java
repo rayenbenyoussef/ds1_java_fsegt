@@ -1,12 +1,17 @@
 package src;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import src.exceptions.AnimalNotFoundException;
+import src.exceptions.AnimalNotIncludedException;
 import src.exceptions.DeplacementImpossibleException;
 import src.exceptions.EnclosNotFoundException;
 import src.exceptions.FullEnclosureException;
+import src.exceptions.TypeAnimalNotValidException;
 import src.zoo.Enclos;
 import src.zoo.Zoo;
 import src.zoo.animals.Animal;
@@ -68,86 +73,106 @@ public class Main {
             System.out.println("----------------------------------------------------------");
             switch (c) {
             case 1:
-                System.out.println(GREEN+"Ajouter un enclos:"+RESET);
-                Enclos enc=new Enclos();
-                System.out.print("    donner enclos nom: ");
-                String nom=sc.nextLine();
-                enc.setNom(nom);
-                System.out.print("    donner enclos localite: ");
-                String loc=sc.nextLine();
-                enc.setLoc(loc);
-                System.out.print("    donner enclos capacite max: ");
-                int max=sc.nextInt();
-                enc.setMax(max);
-                System.out.print("    donner enclos superficie: ");
-                float sup=sc.nextFloat();
-                enc.setSup(sup);
+                try {
+                    System.out.println(GREEN+"----Ajouter un enclos----"+RESET);
+                    Enclos enc=new Enclos();
+                    System.out.print("    donner enclos nom: ");
+                    String nom=sc.nextLine();
+                    enc.setNom(nom);
+                    System.out.print("    donner enclos localite: ");
+                    String loc=sc.nextLine();
+                    enc.setLoc(loc);
+                    System.out.print("    donner enclos capacite max: ");
+                    int max=sc.nextInt();
+                    enc.setMax(max);
+                    System.out.print("    donner enclos superficie: ");
+                    float sup=sc.nextFloat();
+                    enc.setSup(sup);
                 
-                zoo_fsegt.ajouterEnclos(enc);
+                    zoo_fsegt.ajouterEnclos(enc);
+                } catch (TypeAnimalNotValidException e) {
+                    System.err.println(e);
+                } catch (FileNotFoundException e) {
+                    System.err.println(e);
+                }catch(InputMismatchException e){
+                    System.err.println(e);
+                    sc.nextLine();
+                }
+                
                 break;
             case 2:
-                System.out.print("donner enclos id: ");
-                String id=sc.nextLine();
+                try {
+                    System.out.println(GREEN+"----Ajouter un animal----"+RESET);
+                    System.out.print("    donner enclos id: ");
+                    String id=sc.nextLine();
 
-                System.out.print("donner animal nom: ");
-                nom=sc.nextLine();
+                    System.out.print("    donner animal nom: ");
+                    String nom=sc.nextLine();
 
-                System.out.print("donner animal date de naissance(d M yyyy): ");
-                LocalDate date=dateInput(sc.nextLine());
+                    System.out.print("    donner animal date de naissance(d M yyyy): ");
+                    LocalDate date=dateInput(sc.nextLine());
 
-                int type;
-                do{
-                    System.out.print("donner type de animal(1.Mammifere, 2.Oiseau, 3.Reptile): ");
-                    type=sc.nextInt();
-                    sc.nextLine();
-                }while(type!=1&&type!=2&&type!=3);
+                    int type;
+                    do{
+                        System.out.print("    donner type de animal(1.Mammifere, 2.Oiseau, 3.Reptile): ");
+                        type=sc.nextInt();
+                        sc.nextLine();
+                    }while(type!=1&&type!=2&&type!=3);
 
                 
-                Animal a;
-                switch (type) {
-                    case 1:
-                        a=new Mammifere();
-                        a.setNom(nom);
-                        a.setDateN(date);
+                    Animal a;
+                    switch (type) {
+                        case 1:
+                            a=new Mammifere();
+                            a.setNom(nom);
+                            a.setDateN(date);
 
-                        System.out.print("donner animal espece: ");
-                        ((Mammifere)a).setEspece(sc.nextLine());
-                        break;
-                    case 2:
-                        a=new Oiseau();
-                        a.setNom(nom);
-                        a.setDateN(date);
+                            System.out.print("    donner animal espece: ");
+                            ((Mammifere)a).setEspece(sc.nextLine());
+                            break;
+                        case 2:
+                            a=new Oiseau();
+                            a.setNom(nom);
+                            a.setDateN(date);
 
-                        System.out.print("donner animal envergure: ");
-                        ((Oiseau)a).setEnvergure(sc.nextLine());
-                        break;
-                    case 3:
-                        a=new Reptile();
-                        a.setNom(nom);
-                        a.setDateN(date);
+                            System.out.print("    donner animal envergure: ");
+                            ((Oiseau)a).setEnvergure(sc.nextLine());
+                            break;
+                        case 3:
+                            a=new Reptile();
+                            a.setNom(nom);
+                            a.setDateN(date);
 
-                        System.out.print("donner animal venimeux(1:oui, 0:non): ");
-                        ((Reptile)a).setVenimeux(sc.nextInt());
-                        break;
-                    default:
-                        a=new Mammifere();
-                }
-                try {
+                            System.out.print("    donner animal venimeux(1:oui, 0:non): ");
+                            ((Reptile)a).setVenimeux(sc.nextInt());
+                            break;
+                        default:
+                            a=new Mammifere();
+                    }
+                
                     zoo_fsegt.getEnclos(id).ajouterAnimal(a);
+                }catch (DateTimeParseException e) {
+                    System.err.println("not valid time");
                 } catch (FullEnclosureException e) {
                     System.err.println(e);
+                } catch (InputMismatchException e) {
+                    System.err.println(e);
                 }catch(EnclosNotFoundException e){
+                    System.err.println(e);
+
+                }catch(AnimalNotIncludedException e){
                     System.err.println(e);
 
                 }
                 break;
             case 3:
-                System.out.print("donner animal id: ");
+                System.out.println(YELLOW+"----Déplacer un animal----"+RESET);
+                System.out.print("    donner animal id: ");
                 String ida=sc.nextLine();
 
-                System.out.print("donner old enlos id: ");
+                System.out.print("    donner old enlos id: ");
                 String ide1=sc.nextLine();
-                System.out.print("donner new enclos id: ");
+                System.out.print("    donner new enclos id: ");
                 String ide2=sc.nextLine();
                 try {
                     zoo_fsegt.deplacerAnimal(ida,ide1,ide2);
@@ -160,13 +185,17 @@ public class Main {
                 catch (AnimalNotFoundException e) {
                     System.err.println(e);
                 }
+                catch (AnimalNotIncludedException e) {
+                    System.err.println(e);
+                }
                 
                 break;
             case 4:
-                System.out.print("donner animal id: ");
+                System.out.println(RED+"----Supprimer un animal----"+RESET);
+                System.out.print("    donner animal id: ");
                 ida=sc.nextLine();
 
-                System.out.print("donner enclos id: ");
+                System.out.print("    donner enclos id: ");
                 String ide=sc.nextLine();
 
                 try {
@@ -180,26 +209,29 @@ public class Main {
                 
                 break;
             case 5:
+                System.out.println(GREEN+"----Affiche tous les animaux----"+RESET);
                 zoo_fsegt.afficherTousLesAnimaux();
                 break;
             case 6:
-                System.out.print("donner animal id: ");
+                System.out.println(GREEN+"----Rechercher un animal par ID----"+RESET);
+                System.out.print("    donner animal id: ");
                 ida=sc.nextLine();
                 for (String i : zoo_fsegt.getEnclos().keySet()) {
                     if(zoo_fsegt.getEnclos().get(i).getAniamlById(ida)==null){
                         continue;
                     }else{
-                        System.out.println("animal found in enclos: id="+i+" nom="+zoo_fsegt.getEnclos().get(i).getNom());
+                        System.out.println("Animal found in enclos: id="+i+" nom="+zoo_fsegt.getEnclos().get(i).getNom());
                         zoo_fsegt.getEnclos().get(i).getAniamlById(ida).afficherInfos();
                         break;
                     }
                 }
+                System.out.println("Animal not found.");
                 break;
             case 0:
                 break;
             default: System.out.println("Invalid choice."); break;
             } 
-        } catch (NumberFormatException e) {
+        } catch (InputMismatchException e) {
             System.err.println("invalid input.");
         }
         }while(c!=0);

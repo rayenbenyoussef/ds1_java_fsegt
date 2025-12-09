@@ -1,9 +1,14 @@
 package src.zoo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import src.exceptions.AnimalNotFoundException;
+import src.exceptions.AnimalNotIncludedException;
 import src.exceptions.FullEnclosureException;
+import src.exceptions.TypeAnimalNotValidException;
 import src.zoo.animals.Animal;
 
 public class Enclos  {
@@ -19,7 +24,22 @@ public class Enclos  {
         this.localite="";
     }
 
-    public void setNom(String nom){
+    public boolean validAnimal(String nom) throws FileNotFoundException{
+        File myObj = new File("src/zoo/animals.txt");
+        Scanner myReader = new Scanner(myObj);
+        String data="";
+        while (myReader.hasNextLine()&& !nom.toLowerCase().equals(data.toLowerCase())) {
+            data = myReader.nextLine();
+        }
+        myReader.close();
+        
+        return nom.toLowerCase().equals(data.toLowerCase());
+    }
+
+    public void setNom(String nom) throws TypeAnimalNotValidException,FileNotFoundException{
+        if (!validAnimal(nom)) {
+            throw new TypeAnimalNotValidException();
+        }
         this.nom=nom;
     }
 
@@ -44,9 +64,12 @@ public class Enclos  {
         return null;
     }
 
-    public void ajouterAnimal(Animal a)  throws FullEnclosureException{
+    public void ajouterAnimal(Animal a)  throws FullEnclosureException,AnimalNotIncludedException{
         if (this.animaux.size()==this.capaciteMax){
             throw new FullEnclosureException();
+            
+        }else if(!a.getNom().toLowerCase().equals(this.nom.toLowerCase())){
+            throw new AnimalNotIncludedException();
         }else{
             this.animaux.add(a);
         }
