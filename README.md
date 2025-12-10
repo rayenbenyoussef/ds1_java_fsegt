@@ -28,19 +28,19 @@ src/
 │   ├─ FullEnclosureException.java
 │   └─ TypeAnimalNotValidException.java
 │
-└─ zoo/
-    ├─ animals/
-    │   ├─ Animal.java
-    │   ├─ Carnivore.java
-    │   ├─ Herbivore.java
-    │   ├─ Mammifere.java
-    │   ├─ Oiseau.java
-    │   └─ Reptile.java
-    │
-    ├─ animals.txt
-    ├─ Enclos.java
-    ├─ Zoo.java
-    └─ Main.java
+├─ zoo/
+│   ├─ animals/
+│   │   ├─ Animal.java
+│   │   ├─ Carnivore.java
+│   │   ├─ Herbivore.java
+│   │   ├─ Mammifere.java
+│   │   ├─ Oiseau.java
+│   │   └─ Reptile.java
+│   │
+│   ├─ animals.txt
+│   ├─ Enclos.java
+│   └─ Zoo.java
+└─ Main.java
 ```
 
 ---
