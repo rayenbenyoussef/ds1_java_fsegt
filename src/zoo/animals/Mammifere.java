@@ -23,8 +23,8 @@ public class Mammifere extends Animal implements Carnivore,Herbivore{
     public void manger(){
         System.out.println("je mange");
     }
-    public void afficherInfos(){
-        System.out.println("id: "+getId()+" nom: "+getNom()+"\nage: "+calculAge()+" espece: "+this.espece);
+    public String toString(){
+        return "   id: "+getId()+" | nom: "+getNom()+" | age: "+calculAge()+" | espece: "+this.espece;
     }
 
     public void setEspece(String espece){

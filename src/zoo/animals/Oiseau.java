@@ -22,8 +22,8 @@ public class Oiseau extends Animal implements Herbivore,Carnivore{
     public void manger(){
         System.out.println("je mange");
     }
-    public void afficherInfos(){
-        System.out.println("id: "+getId()+" nom: "+getNom()+"\nage: "+calculAge()+" envergure: "+this.envergure);
+    public String toString(){
+        return "   id: "+getId()+" | nom: "+getNom()+" | age: "+calculAge()+" | envergure: "+this.envergure+"m";
     }
 
     public void setEnvergure(String envergure){

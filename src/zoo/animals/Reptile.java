@@ -25,8 +25,8 @@ public class Reptile extends Animal implements Herbivore,Carnivore{
     public void manger(){
         System.out.println("je mange");
     }
-    public void afficherInfos(){
-        System.out.println("id: "+getId()+" nom: "+getNom()+"\nage: "+calculAge()+" venimeux: "+this.venimeux);
+    public String toString(){
+        return "   id: "+getId()+" | nom: "+getNom()+" | age: "+calculAge()+" | venimeux: "+this.venimeux;
     }
 
     public void setVenimeux(int venimeux) throws InputMismatchException{

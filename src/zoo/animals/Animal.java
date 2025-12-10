@@ -14,7 +14,7 @@ public abstract class Animal {
     }
     public abstract void crier();
     public abstract void manger();
-    public abstract void afficherInfos();
+    public abstract String toString();
     
     public int calculAge(){
         return LocalDate.now().getYear()-this.dateN.getYear();

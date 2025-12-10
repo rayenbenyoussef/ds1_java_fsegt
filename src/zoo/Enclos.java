@@ -91,8 +91,8 @@ public class Enclos  {
     public String toString(){
         String animS="";
         for (Animal a : this.animaux) {
-                animS+="id: "+a.getId() +" nom: "+a.getNom()+"\n";
+                animS+=a.toString()+"\n";
             }
-        return "nom enclos: "+this.nom+" localite: "+this.localite+" superficie: "+this.superficie+" animals list:\n "+animS;
+        return "Nom enclos: "+this.nom+" | Localite: "+this.localite+" | superficie: "+this.superficie+"m² \n Animals list:\n "+animS;
     }
 }

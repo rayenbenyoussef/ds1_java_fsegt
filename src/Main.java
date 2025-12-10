@@ -24,23 +24,24 @@ public class Main {
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
-    public static final String MYELLOW = "\u001B[43m";
-    public static final String WHITE = "\u001B[37m";
+    public static final String PURPLE = "\u001B[35m";
+
+    public static final String datasform="d M yyyy";
     public static LocalDate dateInput(String userInput) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d M yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(datasform);
         LocalDate date = LocalDate.parse(userInput, dateFormat);
         return date ;
     }
 
     public static void logo(){
-        System.out.println("  ______                 _        ______              _   \n" + //
+        System.out.println(PURPLE+"  ______                 _        ______              _   \n" + //
                         " |___  /                | |      |  ____|            | |  \n" + //
                         "    / / ___   ___     __| | ___  | |__ ___  ___  __ _| |_ \n" + //
                         "   / / / _ \\ / _ \\   / _` |/ _ \\ |  __/ __|/ _ \\/ _` | __|\n" + //
                         "  / /_| (_) | (_) | | (_| |  __/ | |  \\__ \\  __/ (_| | |_ \n" + //
                         " /_____\\___/ \\___/   \\__,_|\\___| |_|  |___/\\___|\\__, |\\__|\n" + //
                         "                                                 __/ |    \n" + //
-                        "                                                |___/     ");
+                        "                                                |___/     "+RESET);
     }
 
     public static void clearScreen() {
@@ -109,7 +110,7 @@ public class Main {
                     System.out.print("    donner animal nom: ");
                     String nom=sc.nextLine();
 
-                    System.out.print("    donner animal date de naissance(d M yyyy): ");
+                    System.out.print("    donner animal date de naissance("+datasform+"): ");
                     LocalDate date=dateInput(sc.nextLine());
 
                     int type;
@@ -152,7 +153,7 @@ public class Main {
                 
                     zoo_fsegt.getEnclos(id).ajouterAnimal(a);
                 }catch (DateTimeParseException e) {
-                    System.err.println("not valid time");
+                    System.err.println(RED+"Not valid date"+RESET);
                 } catch (FullEnclosureException e) {
                     System.err.println(e);
                 } catch (InputMismatchException e) {
@@ -186,6 +187,8 @@ public class Main {
                     System.err.println(e);
                 }
                 catch (AnimalNotIncludedException e) {
+                    System.err.println(e);
+                }catch(EnclosNotFoundException e){
                     System.err.println(e);
                 }
                 
@@ -221,19 +224,21 @@ public class Main {
                         continue;
                     }else{
                         System.out.println("Animal found in enclos: id="+i+" nom="+zoo_fsegt.getEnclos().get(i).getNom());
-                        zoo_fsegt.getEnclos().get(i).getAniamlById(ida).afficherInfos();
+                        System.out.println(zoo_fsegt.getEnclos().get(i).getAniamlById(ida).toString());
                         break;
                     }
                 }
-                System.out.println("Animal not found.");
+                System.out.println(YELLOW+" Animal not found."+RESET);
                 break;
             case 0:
                 break;
-            default: System.out.println("Invalid choice."); break;
+            default: System.out.println(RED+"Invalid choice."+RESET); break;
             } 
-        } catch (InputMismatchException e) {
-            System.err.println("invalid input.");
-        }
+            } catch (InputMismatchException e) {
+                System.err.println(RED+"Invalid input."+RESET);
+                sc.nextLine();
+                c=7;
+            }
         }while(c!=0);
     sc.close();
     }
