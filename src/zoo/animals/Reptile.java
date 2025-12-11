@@ -30,7 +30,7 @@ public class Reptile extends Animal implements Herbivore,Carnivore{
     }
 
     public void setVenimeux(int venimeux) throws InputMismatchException{
-        if(venimeux!=1 || venimeux!=0)throw new InputMismatchException();
+        if(venimeux!=1 && venimeux!=0)throw new InputMismatchException();
         this.venimeux=venimeux==1;
     }
 }

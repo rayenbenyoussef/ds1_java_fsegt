@@ -1,10 +1,13 @@
 package src.zoo.animals;
+
+import src.exceptions.NotValidEnvergureException;
+
 public class Oiseau extends Animal implements Herbivore,Carnivore{
-    private String envergure;
+    private float envergure;
     public static int nbM=0;
     public Oiseau(){
         super("O0"+nbM);
-        this.envergure="";
+        this.envergure=0;
         nbM++;
     }
 
@@ -26,7 +29,8 @@ public class Oiseau extends Animal implements Herbivore,Carnivore{
         return "   id: "+getId()+" | nom: "+getNom()+" | age: "+calculAge()+" | envergure: "+this.envergure+"m";
     }
 
-    public void setEnvergure(String envergure){
+    public void setEnvergure(float envergure) throws NotValidEnvergureException{
+        if(envergure<0)throw new NotValidEnvergureException();
         this.envergure=envergure;
     }
 }

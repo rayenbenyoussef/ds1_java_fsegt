@@ -8,14 +8,18 @@ import java.util.Scanner;
 import src.exceptions.AnimalNotFoundException;
 import src.exceptions.AnimalNotIncludedException;
 import src.exceptions.FullEnclosureException;
+import src.exceptions.NotValidCapaciteException;
+import src.exceptions.NotValidSuperficieException;
 import src.exceptions.TypeAnimalNotValidException;
 import src.zoo.animals.Animal;
 
 public class Enclos  {
-        private String nom,localite;
-        private int capaciteMax;
-        private ArrayList <Animal> animaux;
-        private float superficie;
+    public static final String RESET = "\u001B[0m";
+    private String nom,localite;
+    private int capaciteMax;
+    private ArrayList <Animal> animaux;
+    private float superficie;
+
     public Enclos(){
         this.nom="";
         this.capaciteMax=0;
@@ -47,11 +51,13 @@ public class Enclos  {
         this.localite=loc;
     }
 
-    public void setMax(int max){
+    public void setMax(int max)throws NotValidCapaciteException{
+        if(max<0)throw new NotValidCapaciteException();
         this.capaciteMax=max;
     }
 
-    public void setSup(float superficie){
+    public void setSup(float superficie)throws NotValidSuperficieException{
+        if(superficie<0)throw new NotValidSuperficieException();
         this.superficie=superficie;
     }
 
@@ -93,6 +99,6 @@ public class Enclos  {
         for (Animal a : this.animaux) {
                 animS+=a.toString()+"\n";
             }
-        return "Nom enclos: "+this.nom+" | Localite: "+this.localite+" | superficie: "+this.superficie+"m² \n Animals list:\n "+animS;
+        return "Nom enclos: "+this.nom+" | Localite: "+this.localite+" | superficie: "+this.superficie+"m² \n Animals list:\n "+RESET+animS;
     }
 }
