@@ -2,18 +2,18 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>C:\Users\rayen\OneDrive\Desktop\test_projet\zoo_app.jar</jar>
-  <outfile>C:\Users\rayen\OneDrive\Desktop\test_projet\zoo_app.exe</outfile>
+  <jar>C:\Users\rayen\OneDrive\Documents\code\java_fsegt\ds1_projet\test_projet\zoo_app.jar</jar>
+  <outfile>C:\Users\rayen\OneDrive\Documents\code\java_fsegt\ds1_projet\test_projet\Zoo de Fsegt.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
   <priority>normal</priority>
   <downloadUrl></downloadUrl>
   <supportUrl></supportUrl>
-  <stayAlive>true</stayAlive>
+  <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon></icon>
+  <icon>C:\Users\rayen\Downloads\zoo.ico</icon>
   <jre>
     <path>%JAVA_HOME%;%PATH%</path>
     <requiresJdk>false</requiresJdk>
