@@ -82,6 +82,5 @@ java -cp bin Main
 - Add unit tests (JUnit)
 
 ---
-
-## Author
-Rayen Ben youssef
+## ⚖️ License
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
