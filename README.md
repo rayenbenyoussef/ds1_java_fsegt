@@ -1,23 +1,32 @@
-# Zoo Management – Java (Terminal App)
+# Zoo Management – Java (Terminal App) 🦁
+### University Project | Faculty of Economic Sciences and Management of Tunis (FSEGT)
 
-A straightforward terminal-based zoo management application written in Java. It lets you manage enclosures, handle animals of different types, and enforce constraints using custom exceptions. Everything is fully OOP, no external libraries.
+A robust, "crash-proof" terminal-based zoo management application written in Java. It allows users to manage enclosures, handle animals of different species, and enforce strict logic constraints using custom exceptions.
 
----
-
-## Features
-- Create and manage enclosures  
-- Add animals (mammals, birds, reptiles, herbivores, carnivores)  
-- Validate animal types before adding them  
-- Prevent adding animals to full enclosures  
-- Prevent moving animals to invalid or non-existing enclosures  
-- Custom exceptions for clean error handling  
-- Reads initial animals from a simple text file (`animals.txt`)
+This project was designed with a focus on **stability and user experience**, featuring a compiled `.exe` version for easy execution on Windows without needing an IDE.
 
 ---
 
-## Project Structure
+## 🚀 Features
+- **Standalone Executable:** Runs as a native Windows `.exe` file for portability.
+- **Crash-Proof Input:** Robust validation ensures the app never crashes on invalid inputs (e.g., entering letters where numbers are expected).
+- **Smart Management:**
+  - Create and manage enclosures.
+  - Add animals (Mammals, Birds, Reptiles, Herbivores, Carnivores).
+  - **Auto Fill** option for quick testing.
+  - **Search by ID** for quick animal lookup.
+- **Logic Enforcement:**
+  - Validates animal types before adding them.
+  - Prevents adding animals to full enclosures.
+  - Prevents moving animals to invalid or non-existing enclosures.
+- **Clean Architecture:** Fully OOP with custom exceptions (`FullEnclosureException`, `AnimalNotFoundException`, etc.).
+- **Data Persistence:** Reads initial animal data from `animals.txt`.
 
-```
+---
+
+## 📂 Project Structure
+
+```text
 src/
 │
 ├─ exceptions/
@@ -41,46 +50,3 @@ src/
 │   ├─ Enclos.java
 │   └─ Zoo.java
 └─ Main.java
-```
-
----
-
-## How to Run
-
-### Using terminal
-Compile everything:
-
-```bash
-javac -d bin src/**/*.java
-```
-
-Run the main program:
-
-```bash
-java -cp bin Main
-```
-
-### Using IntelliJ / Eclipse / NetBeans
-- Open the project  
-- Make sure `src` is marked as a source folder  
-- Run `Main.java`
-
----
-
-## Technologies
-- Java 8+  
-- Pure OOP  
-- No external dependencies
-
----
-
-## Future Improvements
-- Add serialization (save/load zoo state)  
-- Add feeding schedules  
-- Add automatic health tracking for animals  
-- Replace terminal menu with JavaFX UI  
-- Add unit tests (JUnit)
-
----
-## ⚖️ License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
